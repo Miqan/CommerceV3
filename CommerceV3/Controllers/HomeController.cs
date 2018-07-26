@@ -5,13 +5,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CommerceV3.Models;
+using CommerceV3.Data;
 
 namespace CommerceV3.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext db;
+        public HomeController (ApplicationDbContext db)
+        {
+            this.db = db;
+        }
         public IActionResult Index()
         {
+            //LinQ sorgulaması ile Slides veritabanındaki verileri listeleme
+            ViewBag.Slides = db.Slides.Where(s => s.IsPublished == true).OrderBy(o=>o.Position).Take(10).ToList();
             return View();
         }
 
