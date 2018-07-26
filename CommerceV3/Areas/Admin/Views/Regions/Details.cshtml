@@ -1,0 +1,31 @@
+﻿@model CommerceV3.Models.Region
+
+@{
+    ViewData["Title"] = "Bölge Detayı: "+Model.Name;
+}
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RegionType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RegionType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentRegion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ParentRegion.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-success">Düzenle</a>
+    <a asp-action="Index" class="btn btn-sm btn-danger">İptal</a>
+</div>

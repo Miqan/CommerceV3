@@ -1,0 +1,50 @@
+﻿@model CommerceV3.Models.Supplier
+
+@{
+    ViewData["Title"] = "Tedarikçi Detayı: " + Model.Name;
+}
+
+<div>
+        <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Region)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Region.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdateDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-success">Düzenle</a>
+    <a asp-action="Index" class="btn btn-sm btn-danger">İptal</a>
+</div>

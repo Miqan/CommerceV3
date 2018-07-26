@@ -1,0 +1,38 @@
+﻿@model CommerceV3.Models.Region
+
+@{
+    ViewData["Title"] = "Yeni Bölge";
+}
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegionType" class="control-label"></label>
+                <select asp-for="RegionType" class="form-control" asp-items="@Html.GetEnumSelectList(typeof(RegionType))">
+                    <option value="">Bölge Türü seçiniz</option>
+                </select>
+                <span asp-validation-for="RegionType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParentRegionId" class="control-label"></label>
+                <select asp-for="ParentRegionId" class ="form-control" asp-items="ViewBag.ParentRegionId">
+                    <option value="">Üst Bölge seçiniz</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Kaydet" class="btn btn-sm btn-success" />
+                <a asp-action="Index" class="btn btn-sm btn-danger">İptal</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

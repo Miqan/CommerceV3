@@ -1,0 +1,49 @@
+﻿@model CommerceV3.Models.MenuItem
+
+@{
+    ViewData["Title"] = "Menü Öğesi Detayı: "+Model.Name;
+}
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Url)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Url)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Target)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Target)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPublished)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsPublished)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Position)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Position)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentMenuItem)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ParentMenuItem.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-success">Düzenle</a>
+    <a asp-action="Index" class="btn btn-sm btn-danger">İptal</a>
+</div>

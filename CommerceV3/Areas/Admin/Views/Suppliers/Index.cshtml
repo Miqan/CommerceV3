@@ -1,0 +1,62 @@
+﻿@model IEnumerable<CommerceV3.Models.Supplier>
+
+@{
+    ViewData["Title"] = "Tedarikçiler";
+}
+<p>
+    <a asp-action="Create" class="btn btn-sm btn-primary">Yeni Tedarikçi</a>
+</p>
+<table id="tblRecords" class="table">
+    <thead>
+        <tr>
+            <th class="text-nowrap all">
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th class="text-nowrap">
+                @Html.DisplayNameFor(model => model.Region)
+            </th>
+            <th class="text-nowrap">
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th class="text-nowrap">
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>
+            <th class="text-nowrap">
+                @Html.DisplayNameFor(model => model.UpdatedBy)
+            </th>
+            <th class="text-nowrap">
+                @Html.DisplayNameFor(model => model.UpdateDate)
+            </th>
+            <th class="text-nowrap all" data-orderable="false">Eylemler</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Region.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateDate)
+            </td>
+            <td class="text-nowrap">
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-success">Düzenle</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-default">Detaylar</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

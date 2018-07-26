@@ -1,0 +1,19 @@
+﻿@model CommerceV3.Models.Menu
+
+@{
+    ViewData["Title"] = "Menü Detayı: "+Model.Name;
+}
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-success">Düzenle</a>
+    <a asp-action="Index" class="btn btn-sm btn-danger">İptal</a>
+</div>

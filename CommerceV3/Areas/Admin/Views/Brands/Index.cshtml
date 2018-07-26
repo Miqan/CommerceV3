@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CommerceV3.Models.Brand>
+
+@{
+    ViewData["Title"] = "Markalar";
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-sm btn-primary">Yeni Marka</a>
+</p>
+<table id="tblRecords" class="table">
+    <thead>
+        <tr>
+            <th class="text-nowrap all">
+                @Html.DisplayNameFor(model => model.Logo)
+            </th>
+            <th class="text-nowrap all">
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+
+            <th class="text-nowrap all" data-orderable="false">Eylemler</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+               <img src="~/Uploads/@item.Logo" width="50" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+
+            <td class="text-nowrap">
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-success">Düzenle</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-default">Detaylar</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

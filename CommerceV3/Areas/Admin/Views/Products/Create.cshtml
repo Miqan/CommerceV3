@@ -1,0 +1,110 @@
+﻿@model CommerceV3.Models.Product
+
+@{
+    ViewData["Title"] = "Yeni Ürün";
+}
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Slug" class="control-label"></label>
+                <input asp-for="Slug" class="form-control" />
+                <span asp-validation-for="Slug" class="text-danger"></span>
+            </div>
+            <div class="form-group">                
+                <label asp-for="Photo" class="control-label"></label>
+                <input asp-for="Photo" type="hidden" />
+                <input type="file" name="upload" class="form-control" />
+                <span asp-validation-for="Photo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OldPrice" class="control-label"></label>
+                <input asp-for="OldPrice" class="form-control" />
+                <span asp-validation-for="OldPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label>
+                        <input asp-for="IsInStock" /> @Html.DisplayNameFor(model => model.IsInStock)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label>
+                        <input asp-for="IsPublished" /> @Html.DisplayNameFor(model => model.IsPublished)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label>
+                        <input asp-for="IsNew" /> @Html.DisplayNameFor(model => model.IsNew)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShippingPriceCityWide" class="control-label"></label>
+                <input asp-for="ShippingPriceCityWide" class="form-control" />
+                <span asp-validation-for="ShippingPriceCityWide" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShippingPriceCountryWide" class="control-label"></label>
+                <input asp-for="ShippingPriceCountryWide" class="form-control" />
+                <span asp-validation-for="ShippingPriceCountryWide" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShippingPriceWorldWide" class="control-label"></label>
+                <input asp-for="ShippingPriceWorldWide" class="form-control" />
+                <span asp-validation-for="ShippingPriceWorldWide" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SupplierId" class="control-label"></label>
+                <select asp-for="SupplierId" class="form-control" asp-items="ViewBag.SupplierId">
+                    <option value="">Tedarikçi seçiniz</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="BrandId" class="control-label"></label>
+                <select asp-for="BrandId" class="form-control" asp-items="ViewBag.BrandId">
+                    <option value="">Marka seçiniz</option>
+                </select>
+            </div>
+
+            <input type="hidden" asp-for="CreatedBy" />
+            <input type="hidden" asp-for="CreateDate" />
+            <input type="hidden" asp-for="UpdatedBy" />
+            <input type="hidden" asp-for="UpdateDate" />
+
+            <div class="form-group">
+                <input type="submit" value="Kaydet" class="btn btn-sm btn-primary" />
+                <a asp-action="Index" class="btn btn-sm btn-danger">İptal</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
