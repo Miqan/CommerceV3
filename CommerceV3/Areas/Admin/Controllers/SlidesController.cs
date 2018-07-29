@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using CommerceV3.Data;
 using CommerceV3.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace CommerceV3.Areas.Admin.Controllers
 {
@@ -16,10 +19,12 @@ namespace CommerceV3.Areas.Admin.Controllers
     public class SlidesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHostingEnvironment environment;
 
-        public SlidesController(ApplicationDbContext context)
+        public SlidesController(ApplicationDbContext context, IHostingEnvironment environment)
         {
             _context = context;
+            this.environment = environment;
         }
 
         // GET: Admin/Slides
@@ -57,10 +62,28 @@ namespace CommerceV3.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Image,Url,Target,IsPublished,Position")] Slide slide)
+        public async Task<IActionResult> Create([Bind("Id,Name,Image,Url,Target,IsPublished,Position")] Slide slide, IFormFile upload)
         {
             if (ModelState.IsValid)
             {
+                if (upload != null && upload.Length > 0)
+                {
+                    //upload işlemi burada yapılır.
+                    var rnd = new Random();
+                    var fileName = Path.GetFileNameWithoutExtension(upload.FileName) + rnd.Next(1000).ToString() + Path.GetExtension(upload.FileName);
+                    var path = Path.Combine(environment.WebRootPath, "Uploads");
+                    var filePath = Path.Combine(path, fileName);
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        upload.CopyTo(stream);
+                    }
+                    slide.Image = fileName;
+                }
                 _context.Add(slide);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -89,7 +112,7 @@ namespace CommerceV3.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,Image,Url,Target,IsPublished,Position")] Slide slide)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,Image,Url,Target,IsPublished,Position")] Slide slide, IFormFile upload)
         {
             if (id != slide.Id)
             {
@@ -97,9 +120,27 @@ namespace CommerceV3.Areas.Admin.Controllers
             }
 
             if (ModelState.IsValid)
-            {
+            {               
                 try
                 {
+                    if (upload != null && upload.Length > 0)
+                    {
+                        //upload işlemi burada yapılır.
+                        var rnd = new Random();
+                        var fileName = Path.GetFileNameWithoutExtension(upload.FileName) + rnd.Next(1000).ToString() + Path.GetExtension(upload.FileName);
+                        var path = Path.Combine(environment.WebRootPath, "Uploads");
+                        var filePath = Path.Combine(path, fileName);
+                        if (!Directory.Exists(path))
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            upload.CopyTo(stream);
+                        }
+                        slide.Image = fileName;
+                    }
                     _context.Update(slide);
                     await _context.SaveChangesAsync();
                 }
