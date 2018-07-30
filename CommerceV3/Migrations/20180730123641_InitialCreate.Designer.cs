@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CommerceV3.Data.Migrations
+namespace CommerceV3.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180725094851_addApplicationUsers")]
-    partial class addApplicationUsers
+    [Migration("20180730123641_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -148,9 +148,12 @@ namespace CommerceV3.Data.Migrations
 
                     b.Property<bool>("IsPublished");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(100);
 
                     b.Property<decimal>("OldPrice");
+
+                    b.Property<string>("Photo");
 
                     b.Property<decimal>("Price");
 
@@ -310,9 +313,6 @@ namespace CommerceV3.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -352,8 +352,6 @@ namespace CommerceV3.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -424,16 +422,6 @@ namespace CommerceV3.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("CommerceV3.Models.ApplicationUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-
-                    b.ToTable("ApplicationUser");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("CommerceV3.Models.CartItem", b =>

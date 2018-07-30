@@ -4,16 +4,14 @@ using CommerceV3.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CommerceV3.Data.Migrations
+namespace CommerceV3.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180723100125_AddModels")]
-    partial class AddModels
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,9 +146,12 @@ namespace CommerceV3.Data.Migrations
 
                     b.Property<bool>("IsPublished");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(100);
 
                     b.Property<decimal>("OldPrice");
+
+                    b.Property<string>("Photo");
 
                     b.Property<decimal>("Price");
 

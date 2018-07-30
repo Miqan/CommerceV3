@@ -11,8 +11,10 @@ namespace CommerceV3.Models
     {
 		public string Id { get; set; }
         [Display(Name = "Ürün Adı")]
+        [StringLength(100)] //karakterin maksimum kayıt kapasitesini belirler. Bunun için ayrıca migration eklemek gereklidir.
         public string Name { get; set; }
         [Display(Name = "Bağlantı")]
+
         public string Slug { get; set; }
         [Display(Name = "Fotoğraf")]
         public string Photo { get; set; }
