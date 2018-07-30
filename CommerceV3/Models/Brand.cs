@@ -10,9 +10,11 @@ namespace CommerceV3.Models
     {
 		public string Id { get; set; }
         [Display(Name = "Marka Adı")]
-		public string Name { get; set; }
+        [StringLength(100)]
+        public string Name { get; set; }
         [Display(Name = "Logo")]
-		public string Logo { get; set; }
+        [StringLength(200)]
+        public string Logo { get; set; }
 
 		public virtual ICollection<Product> Products { get; set; }
     }

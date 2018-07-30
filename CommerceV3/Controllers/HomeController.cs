@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CommerceV3.Models;
 using CommerceV3.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CommerceV3.Controllers
 {
@@ -20,7 +21,7 @@ namespace CommerceV3.Controllers
         {
             //LinQ sorgulaması ile Slides veritabanındaki verileri listeleme
             ViewBag.Slides = db.Slides.Where(s => s.IsPublished == true).OrderBy(o=>o.Position).Take(10).ToList(); //Method-based LINQ to Entities
-            ViewBag.Products = (from p in db.Products where p.IsPublished == true orderby p.CreateDate descending select p).Take(8).ToList(); //Query-based LINQ to Entities
+            ViewBag.Products = (from p in db.Products.Include(i=>i.Category) where p.IsPublished == true orderby p.CreateDate descending select p).Take(8).ToList(); //Query-based LINQ to Entities
               
             return View();
 

@@ -11,14 +11,16 @@ namespace CommerceV3.Models
     {
 		public string Id { get; set; }
         [Display(Name = "Ürün Adı")]
-        [StringLength(100)] //karakterin maksimum kayıt kapasitesini belirler. Bunun için ayrıca migration eklemek gereklidir.
+        [StringLength(200)] //karakterin maksimum kayıt kapasitesini belirler. Bunun için ayrıca migration eklemek gereklidir.
         public string Name { get; set; }
         [Display(Name = "Bağlantı")]
-
+        [StringLength(200)]
         public string Slug { get; set; }
         [Display(Name = "Fotoğraf")]
+        [StringLength(200)]
         public string Photo { get; set; }
         [Display(Name = "Açıklama")]
+        [StringLength(200)]
         public string Description { get; set; }
         [Display(Name = "Eski Fiyat")]
         public decimal OldPrice { get; set; }
@@ -44,13 +46,18 @@ namespace CommerceV3.Models
 		[ForeignKey("SupplierId")]
         [Display(Name = "Tedarikçi")]
         public Supplier Supplier { get; set; }
+
         [Display(Name = "Marka")]
         public string BrandId { get; set; }
 		[ForeignKey("BrandId")]
         [Display(Name = "Marka")]
         public Brand Brand { get; set; }
 
-		public virtual ICollection<ProductCategory> ProductCategories { get; set; }
+        [Display (Name="Kategori")]
+        public string CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        [Display (Name="Kategori")]
+        public Category Category { get; set; }
 
         [Display(Name = "Oluşturulan Kullanıcı")]
         public string CreatedBy { get; set; }

@@ -14,7 +14,8 @@ namespace CommerceV3.Models
 		}
 		public string Id { get; set; }
         [Display(Name = "Sahip")]
-		public string Owner { get; set; }
+        [StringLength(100)]
+        public string Owner { get; set; }
 		public virtual ICollection<CartItem> CartItems { get; set; }
         [Display(Name = "Oluşturan Kullanıcı")]
 		public string CreatedBy { get; set; }

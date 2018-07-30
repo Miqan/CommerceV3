@@ -30,7 +30,7 @@ namespace CommerceV3.Areas.Admin.Controllers
         // GET: Admin/Products
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Products.Include(p => p.Brand).Include(p => p.Supplier);
+            var applicationDbContext = _context.Products.Include(p => p.Brand).Include(p => p.Supplier).Include(p=>p.Category);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -65,6 +65,7 @@ namespace CommerceV3.Areas.Admin.Controllers
 
             ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name");
             ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name");
+            ViewBag.Categories = new SelectList(_context.Categories, "Id", "Name");
             return View(product);
         }
 
@@ -73,7 +74,7 @@ namespace CommerceV3.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Slug,Description,OldPrice,Price,Quantity,IsInStock,IsPublished,IsNew,ShippingPriceCityWide,ShippingPriceCountryWide,ShippingPriceWorldWide,SupplierId,BrandId,CreatedBy,CreateDate,UpdatedBy,UpdateDate,Photo")] Product product, IFormFile upload)
+        public async Task<IActionResult> Create([Bind("Id,Name,Slug,Description,OldPrice,Price,Quantity,IsInStock,IsPublished,IsNew,ShippingPriceCityWide,ShippingPriceCountryWide,ShippingPriceWorldWide,SupplierId,BrandId,CreatedBy,CreateDate,UpdatedBy,UpdateDate,Photo,CategoryId")] Product product, IFormFile upload)
         {
             if (ModelState.IsValid)
             {
@@ -106,6 +107,7 @@ namespace CommerceV3.Areas.Admin.Controllers
             }
             ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name", product.BrandId);
             ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", product.SupplierId);
+            ViewBag.Categories = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
             return View(product);
         }
 
@@ -124,6 +126,7 @@ namespace CommerceV3.Areas.Admin.Controllers
             }
             ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name", product.BrandId);
             ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", product.SupplierId);
+            ViewBag.Categories = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
             return View(product);
         }
 
@@ -132,7 +135,7 @@ namespace CommerceV3.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,Slug,Description,OldPrice,Price,Quantity,IsInStock,IsPublished,IsNew,ShippingPriceCityWide,ShippingPriceCountryWide,ShippingPriceWorldWide,SupplierId,BrandId,CreatedBy,CreateDate,UpdatedBy,UpdateDate,Photo")] Product product, IFormFile upload)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,Slug,Description,OldPrice,Price,Quantity,IsInStock,IsPublished,IsNew,ShippingPriceCityWide,ShippingPriceCountryWide,ShippingPriceWorldWide,SupplierId,BrandId,CreatedBy,CreateDate,UpdatedBy,UpdateDate,Photo,CategoryId")] Product product, IFormFile upload)
         {
             if (id != product.Id)
             {
@@ -181,6 +184,7 @@ namespace CommerceV3.Areas.Admin.Controllers
             }
             ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name", product.BrandId);
             ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", product.SupplierId);
+            ViewBag.Categories = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
             return View(product);
         }
 

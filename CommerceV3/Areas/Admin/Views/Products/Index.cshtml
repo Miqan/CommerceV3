@@ -20,6 +20,9 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th class="text-nowrap">
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th class="text-nowrap">
                 @Html.DisplayNameFor(model => model.OldPrice)
             </th>
             <th class="text-nowrap">
@@ -49,7 +52,7 @@
             <th class="text-nowrap">
                 @Html.DisplayNameFor(model => model.Supplier)
             </th>
-            <th>
+            <th class="text-nowrap">
                 @Html.DisplayNameFor(model => model.Brand)
             </th>
             <th class="text-nowrap">
@@ -83,6 +86,9 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.OldPrice)
             </td>
             <td>
@@ -110,10 +116,10 @@
                 @Html.DisplayFor(modelItem => item.ShippingPriceWorldWide)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Supplier.Id)
+                @Html.DisplayFor(modelItem => item.Supplier.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Brand.Id)
+                @Html.DisplayFor(modelItem => item.Brand.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedBy)

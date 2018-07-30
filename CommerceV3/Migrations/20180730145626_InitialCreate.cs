@@ -52,8 +52,8 @@ namespace CommerceV3.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Logo = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
+                    Logo = table.Column<string>(maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -65,7 +65,7 @@ namespace CommerceV3.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Owner = table.Column<string>(nullable: true),
+                    Owner = table.Column<string>(maxLength: 100, nullable: true),
                     CreatedBy = table.Column<string>(nullable: true),
                     CreateDate = table.Column<DateTime>(nullable: false),
                     UpdatedBy = table.Column<string>(nullable: true),
@@ -82,7 +82,7 @@ namespace CommerceV3.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -94,7 +94,7 @@ namespace CommerceV3.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -106,7 +106,7 @@ namespace CommerceV3.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: true),
                     RegionType = table.Column<int>(nullable: false),
                     ParentRegionId = table.Column<string>(nullable: true)
                 },
@@ -126,10 +126,10 @@ namespace CommerceV3.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Image = table.Column<string>(nullable: true),
-                    Url = table.Column<string>(nullable: true),
-                    Target = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: true),
+                    Image = table.Column<string>(maxLength: 200, nullable: true),
+                    Url = table.Column<string>(maxLength: 200, nullable: true),
+                    Target = table.Column<string>(maxLength: 200, nullable: true),
                     IsPublished = table.Column<bool>(nullable: false),
                     Position = table.Column<int>(nullable: false)
                 },
@@ -249,9 +249,9 @@ namespace CommerceV3.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Url = table.Column<string>(nullable: true),
-                    Target = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: true),
+                    Url = table.Column<string>(maxLength: 200, nullable: true),
+                    Target = table.Column<string>(maxLength: 200, nullable: true),
                     IsPublished = table.Column<bool>(nullable: false),
                     Position = table.Column<int>(nullable: false),
                     ParentMenuItemId = table.Column<string>(nullable: true),
@@ -279,7 +279,7 @@ namespace CommerceV3.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: true),
                     RegionId = table.Column<string>(nullable: true),
                     CreatedBy = table.Column<string>(nullable: true),
                     CreateDate = table.Column<DateTime>(nullable: false),
@@ -302,10 +302,10 @@ namespace CommerceV3.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(maxLength: 100, nullable: true),
-                    Slug = table.Column<string>(nullable: true),
-                    Photo = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: true),
+                    Slug = table.Column<string>(maxLength: 200, nullable: true),
+                    Photo = table.Column<string>(maxLength: 200, nullable: true),
+                    Description = table.Column<string>(maxLength: 200, nullable: true),
                     OldPrice = table.Column<decimal>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
@@ -317,6 +317,7 @@ namespace CommerceV3.Migrations
                     ShippingPriceWorldWide = table.Column<decimal>(nullable: false),
                     SupplierId = table.Column<string>(nullable: true),
                     BrandId = table.Column<string>(nullable: true),
+                    CategoryId = table.Column<string>(nullable: true),
                     CreatedBy = table.Column<string>(nullable: true),
                     CreateDate = table.Column<DateTime>(nullable: false),
                     UpdatedBy = table.Column<string>(nullable: true),
@@ -329,6 +330,12 @@ namespace CommerceV3.Migrations
                         name: "FK_Products_Brands_BrandId",
                         column: x => x.BrandId,
                         principalTable: "Brands",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -363,30 +370,6 @@ namespace CommerceV3.Migrations
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductCategories",
-                columns: table => new
-                {
-                    ProductId = table.Column<string>(nullable: false),
-                    CategoryId = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductCategories", x => new { x.ProductId, x.CategoryId });
-                    table.ForeignKey(
-                        name: "FK_ProductCategories_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductCategories_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -449,14 +432,14 @@ namespace CommerceV3.Migrations
                 column: "ParentMenuItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductCategories_CategoryId",
-                table: "ProductCategories",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Products_BrandId",
                 table: "Products",
                 column: "BrandId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CategoryId",
+                table: "Products",
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_SupplierId",
@@ -498,9 +481,6 @@ namespace CommerceV3.Migrations
                 name: "MenuItems");
 
             migrationBuilder.DropTable(
-                name: "ProductCategories");
-
-            migrationBuilder.DropTable(
                 name: "Slides");
 
             migrationBuilder.DropTable(
@@ -513,16 +493,16 @@ namespace CommerceV3.Migrations
                 name: "Carts");
 
             migrationBuilder.DropTable(
-                name: "Menus");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
+                name: "Menus");
+
+            migrationBuilder.DropTable(
                 name: "Brands");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Suppliers");
