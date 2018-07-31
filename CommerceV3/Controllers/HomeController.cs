@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using CommerceV3.Models;
 using CommerceV3.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CommerceV3.Controllers
 {
@@ -36,9 +37,20 @@ namespace CommerceV3.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewBag.Countries = new SelectList(db.Regions.Where(r => r.RegionType == RegionType.Country).OrderBy(o => o.Name).ToList(), "Id", "Name");
 
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Contact(string fullName, string email, string country, string city, string subject, string message)
+        {
+            return View();
+        }
+
+        public IEnumerable<Region> GetCities (string parentRegionId)
+        {
+            return db.Regions.Where(r => r.RegionType == RegionType.City && r.ParentRegionId == parentRegionId).OrderBy(o => o.Name).ToList();
         }
 
         public IActionResult Privacy()
